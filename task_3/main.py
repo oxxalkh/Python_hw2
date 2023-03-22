@@ -23,13 +23,14 @@ import yaml
 
 
 dictY = {
-    'items': ['computer', 'printer', 'keyboard', 'mouse'],
-    'items_quantity': 4,
+    'items': ['computer', 'printer', 'keyboard', 'mouse', 'ipad'],
+    'items_quantity': 5,
     'items_price': {
         'computer': '200€-1000€',
         'keyboard': '5€-50€',
         'mouse': '4€-7€',
-        'printer': '100€-300€'
+        'printer': '100€-300€',
+        'ipad': '100€-200€'
     }
 }
 print(dictY)

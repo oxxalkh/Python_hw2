@@ -1,3 +1,6 @@
+import re
+import csv
+
 """
 1. Задание на закрепление знаний по модулю CSV. Написать скрипт,
 осуществляющий выборку определенных данных из файлов info_1.txt, info_2.txt,
@@ -37,6 +40,45 @@ os_code_list, os_type_list. В этой же функции создать гл�
 ПРОШУ ВАС НЕ УДАЛЯТЬ СЛУЖЕБНЫЕ ФАЙЛЫ TXT И ИТОГОВЫЙ ФАЙЛ CSV!!!
 """
 
-
+"""
 os_prod_reg = re.compile(r'Изготовитель системы:\s*\S*')
 os_prod_list.append(os_prod_reg.findall(data)[0].split()[2])
+
+"""
+
+
+def get_data():
+    file_list = ['info_1.txt', 'info_2.txt', 'info_3.txt']
+    os_prod_list = []
+    os_name_list = []
+    os_code_list = []
+    os_type_list = []
+    for file in file_list:
+        with open(file, encoding='cp1251') as f_n:
+            subject = f_n.read()
+        os_prod_reg = re.compile(r'Изготовитель системы:\s*\S*')
+        os_prod_list.append(os_prod_reg.findall(subject)[0].split()[2])
+        os_name_reg = re.compile(r'Название ОС:\s*\S*')
+        os_name_list.append(os_name_reg.findall(subject)[0].split()[2])
+        os_code_reg = re.compile(r'Код продукта:\s*\S*')
+        os_code_list.append(os_code_reg.findall(subject)[0].split()[2])
+        os_type_reg = re.compile(r'Тип системы:\s*\S*')
+        os_type_list.append(os_type_reg.findall(subject)[0].split()[2])
+
+    main_data = [
+        ['Изготовитель системы', 'Название ОС', 'Код продукта', 'Тип системы']]
+    for i in range(len(os_prod_list)):
+        main_data.append([os_prod_list[i], os_name_list[i], os_code_list[i],
+                          os_type_list[i]])
+    return main_data
+
+
+def write_to_csv(file_name):
+    with open(file_name, 'w') as f_n:
+        wr_csv = csv.writer(f_n, delimiter=',')
+        data = get_data()
+        for i in data:
+            wr_csv.writerow(i)
+
+
+write_to_csv('test.csv')
