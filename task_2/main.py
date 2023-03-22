@@ -19,6 +19,7 @@
     "orders": []
 }
 
+
 вам нужно подгрузить JSON-объект
 и достучаться до списка, который и нужно пополнять
 а потом сохранять все в файл
@@ -30,15 +31,15 @@ filename = 'orders.json'
 
 
 def write_order_to_json(item, quantity, price, buyer, date):
-    with open(filename, encoding="utf-8") as fl:
-        dict_j = json.loads(fl.read())
+    with open(filename, encoding="utf-8") as f_n:
+        dict_j = json.loads(f_n.read())
 
     dict_j['orders'].append(
         {'item': item, 'quantity': quantity, 'price': price,
          'buyer': buyer, 'date': date})
 
-    with open(filename, "w", encoding="utf-8") as fl:
-        json.dump(dict_j, fl, indent=4, separators=(',', ': '),
+    with open(filename, "w", encoding="utf-8") as f_n:
+        json.dump(dict_j, f_n, indent=4, separators=(',', ': '),
                   ensure_ascii=False)
 
     print(f'Данные добавлены в {filename}')
@@ -46,3 +47,5 @@ def write_order_to_json(item, quantity, price, buyer, date):
 
 write_order_to_json('Компьютер', '1', '567', 'Жерновой',
                     '30.04.2023')
+write_order_to_json('Ноутбук', '1', '432', 'Стругацкий',
+                    '22.04.2023')
